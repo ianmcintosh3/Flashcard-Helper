@@ -2,6 +2,8 @@ package com.example.flashcardapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
@@ -52,6 +54,23 @@ public class CreateCardActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+    }
+
+    private void initSaveButton(){
+        Button saveButton = findViewById(R.id.buttonSave);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                EditText editSubject = findViewById(R.id.editTextSubject);
+                EditText editFront = findViewById(R.id.editTextFront);
+                EditText editBack = findViewById(R.id.editTextBack);
+            currentFlashcard.setSubject(editSubject.getText().toString());
+            currentFlashcard.setFront(editFront.getText().toString());
+            currentFlashcard.setBack(editBack.getText().toString());
+            //boolean wasSuccessful;
+                //come back and figure out how to create this and check
+            }
         });
     }
 
