@@ -2,6 +2,7 @@ package com.example.flashcardapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.sql.SQLException;
@@ -54,5 +55,19 @@ public class FlashDataSource {
             //
         }
         return didSucceed;
+    }
+    public int getLastCardID() {
+        int lastId;
+        try {
+            String query = "SELECT MAX(_id) FROM memo";
+            Cursor cursor = database.rawQuery(query, null);
+
+            cursor.moveToFirst();
+            lastId = cursor.getInt(0);
+            cursor.close();
+        } catch (Exception e) {
+            lastId = -1;
+        }
+        return lastId;
     }
 }

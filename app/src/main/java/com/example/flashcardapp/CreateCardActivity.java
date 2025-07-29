@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,7 +49,7 @@ public class CreateCardActivity extends AppCompatActivity {
         } else{
             currentFlashcard = new Flashcard();
         }
-
+        initSaveButton();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.createCard), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -68,8 +69,29 @@ public class CreateCardActivity extends AppCompatActivity {
             currentFlashcard.setSubject(editSubject.getText().toString());
             currentFlashcard.setFront(editFront.getText().toString());
             currentFlashcard.setBack(editBack.getText().toString());
-            //boolean wasSuccessful;
-                //come back and figure out how to create this and check
+            boolean wasSuccessful;
+                FlashDataSource ds = new FlashDataSource(CreateCardActivity.this);
+                try{
+                    ds.open();
+                    if(currentFlashcard.getFlashcardID() == -1){
+                        wasSuccessful = ds.insertCardInfo(currentFlashcard);
+
+                        if(wasSuccessful) {
+                            int newId = ds.getLastCardID();
+                            currentFlashcard.setFlashcardID(newId);
+                        }
+                    } else {
+                        wasSuccessful = ds.updateCardInfo(currentFlashcard);
+                    }
+                    ds.close();
+                } catch (Exception e){
+                    wasSuccessful = false;
+                }
+                if(wasSuccessful) {
+                    Toast.makeText(CreateCardActivity.this, "Flashcard saved successfully!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(CreateCardActivity.this, "Failed to save Flashcard", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
