@@ -27,10 +27,11 @@ public class FlashDataSource {
         boolean didSucceed = false;
         try {
             ContentValues initialValues = new ContentValues();
-
             initialValues.put("subject", f.getSubject());
-            initialValues.put("frontCard", f.getFront());
-            initialValues.put("backCard", f.getBack());
+            initialValues.put("front", f.getFront());
+            initialValues.put("back", f.getBack());
+            long id = database.insert("flash", null, initialValues);
+            didSucceed = (id != -1);
         }
         catch(Exception e) {
             //d
@@ -45,8 +46,8 @@ public class FlashDataSource {
             ContentValues updateValues = new ContentValues();
 
             updateValues.put("subject", f.getSubject());
-            updateValues.put("frontCard", f.getFront());
-            updateValues.put("backCard", f.getBack());
+            updateValues.put("front", f.getFront());
+            updateValues.put("back", f.getBack());
 
             didSucceed = database.update("flash", updateValues, "_id=" + rowId, null) > 0;
 
@@ -59,7 +60,7 @@ public class FlashDataSource {
     public int getLastCardID() {
         int lastId;
         try {
-            String query = "SELECT MAX(_id) FROM memo";
+            String query = "SELECT MAX(_id) FROM flash";
             Cursor cursor = database.rawQuery(query, null);
 
             cursor.moveToFirst();
