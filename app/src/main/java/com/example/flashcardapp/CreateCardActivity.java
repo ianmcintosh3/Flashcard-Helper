@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class CreateCardActivity extends AppCompatActivity {
 
     private Flashcard currentFlashcard;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +37,7 @@ public class CreateCardActivity extends AppCompatActivity {
         frontEditText.setText(front);
         backEditText.setText(back);
 
-        if (flashID != -1){
+        if (flashID != -1) {
             currentFlashcard = new Flashcard();
             currentFlashcard.setFlashcardID(flashID);
             currentFlashcard.setSubject(subject);
@@ -46,10 +47,11 @@ public class CreateCardActivity extends AppCompatActivity {
             subjectEditText.setText(subject);
             frontEditText.setText(front);
             backEditText.setText(back);
-        } else{
+        } else {
             currentFlashcard = new Flashcard();
         }
         initSaveButton();
+        initDoneButton();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.createCard), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -58,7 +60,7 @@ public class CreateCardActivity extends AppCompatActivity {
         });
     }
 
-    private void initSaveButton(){
+    private void initSaveButton() {
         Button saveButton = findViewById(R.id.buttonSave);
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -66,17 +68,17 @@ public class CreateCardActivity extends AppCompatActivity {
                 EditText editSubject = findViewById(R.id.editTextSubject);
                 EditText editFront = findViewById(R.id.editTextFront);
                 EditText editBack = findViewById(R.id.editTextBack);
-            currentFlashcard.setSubject(editSubject.getText().toString());
-            currentFlashcard.setFront(editFront.getText().toString());
-            currentFlashcard.setBack(editBack.getText().toString());
-            boolean wasSuccessful;
+                currentFlashcard.setSubject(editSubject.getText().toString());
+                currentFlashcard.setFront(editFront.getText().toString());
+                currentFlashcard.setBack(editBack.getText().toString());
+                boolean wasSuccessful;
                 FlashDataSource ds = new FlashDataSource(CreateCardActivity.this);
-                try{
+                try {
                     ds.open();
-                    if(currentFlashcard.getFlashcardID() == -1){
+                    if (currentFlashcard.getFlashcardID() == -1) {
                         wasSuccessful = ds.insertCardInfo(currentFlashcard);
 
-                        if(wasSuccessful) {
+                        if (wasSuccessful) {
                             int newId = ds.getLastCardID();
                             currentFlashcard.setFlashcardID(newId);
                         }
@@ -84,10 +86,10 @@ public class CreateCardActivity extends AppCompatActivity {
                         wasSuccessful = ds.updateCardInfo(currentFlashcard);
                     }
                     ds.close();
-                } catch (Exception e){
+                } catch (Exception e) {
                     wasSuccessful = false;
                 }
-                if(wasSuccessful) {
+                if (wasSuccessful) {
                     Toast.makeText(CreateCardActivity.this, "Flashcard saved successfully!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(CreateCardActivity.this, "Failed to save Flashcard", Toast.LENGTH_SHORT).show();
@@ -96,4 +98,16 @@ public class CreateCardActivity extends AppCompatActivity {
         });
     }
 
+    public void initDoneButton() {
+        Button doneButton = findViewById(R.id.buttonDone);
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(CreateCardActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+    }
+
 }
+
