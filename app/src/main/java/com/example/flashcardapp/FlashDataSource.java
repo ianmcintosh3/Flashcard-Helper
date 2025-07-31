@@ -5,8 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.sql.Array;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
 public class FlashDataSource {
     private SQLiteDatabase database;
     private FlashDBHelper dbHelper;
@@ -70,5 +71,42 @@ public class FlashDataSource {
             lastId = -1;
         }
         return lastId;
+    }
+    public ArrayList<Flashcard> getAllFlashcards() {
+        ArrayList<Flashcard> flashcards = new ArrayList<>();
+        try {
+            Cursor cursor = database.rawQuery("SELECT _id, subject, front, back FROM flash", null);
+            if (cursor.moveToFirst()) {
+                do {
+                    Flashcard card = new Flashcard();
+                    card.setFlashcardID(cursor.getInt(0));
+                    card.setSubject(cursor.getString(1));
+                    card.setFront(cursor.getString(2));
+                    card.setBack(cursor.getString(3));
+                    flashcards.add(card);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        } catch (Exception e) {
+            // handle exception
+        }
+        return flashcards;
+    }
+    public ArrayList<String> getAllSubjects(){
+        ArrayList<String> subjects = new ArrayList<>();
+        try {
+            Cursor cursor = database.rawQuery("SELECT DISTINCT subject FROM flash", null);
+            if(cursor.moveToFirst()){
+                do{
+                    String subject = cursor.getString(0);
+                    subjects.add(subject);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        } catch (Exception e) {
+            //
+        }
+        return subjects;
+
     }
 }
