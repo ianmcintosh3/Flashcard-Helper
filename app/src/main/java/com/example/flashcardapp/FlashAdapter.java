@@ -22,8 +22,7 @@ public class FlashAdapter extends RecyclerView.Adapter<FlashAdapter.FlashViewHol
         this.flashcardArrayList = flashcardArrayList;
         this.context = context;
     }
-
-    public void setmOnItemClickListener(View.OnClickListener listener) {
+    public void setfOnItemClickListener(View.OnClickListener listener) {
         fOnItemClickListener = listener;
     }
 

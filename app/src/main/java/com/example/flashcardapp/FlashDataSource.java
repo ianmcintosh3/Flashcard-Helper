@@ -16,7 +16,7 @@ public class FlashDataSource {
         dbHelper = new FlashDBHelper(context);
     }
 
-    public void open() throws SQLException {
+    public void open() {
         database = dbHelper.getWritableDatabase();
     }
 

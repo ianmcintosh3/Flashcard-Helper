@@ -22,6 +22,7 @@
             </intent-filter>
         </activity>
             <activity android:name=".CreateCardActivity" />
+            <activity android:name=".ReviewCardActivity" />
     </application>
 
 </manifest>
