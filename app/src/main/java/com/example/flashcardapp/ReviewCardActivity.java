@@ -1,5 +1,6 @@
 package com.example.flashcardapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -39,6 +40,23 @@ public class ReviewCardActivity extends AppCompatActivity {
         public void onClick(View v) {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) v.getTag();
             int position = viewHolder.getAdapterPosition();
+
+            if(position != RecyclerView.NO_POSITION) {
+                Flashcard selectedFlashcard = flashcardArrayList.get(position);
+                String flashSubject = selectedFlashcard.getSubject();
+                String flashFront = selectedFlashcard.getFront();
+                String flashBack = selectedFlashcard.getBack();
+                int flashcardId = selectedFlashcard.getFlashcardID();
+
+                //intent
+                Intent intent = new Intent(ReviewCardActivity.this, MainActivity.class);
+                intent.putExtra("flashcardID", flashcardId);
+                intent.putExtra("subject", flashSubject);
+                intent.putExtra("front", flashFront);
+                intent.putExtra("back", flashBack);
+                startActivity(intent);
+
+            }
         }
     };
 

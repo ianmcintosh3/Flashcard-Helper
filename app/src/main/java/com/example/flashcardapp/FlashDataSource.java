@@ -28,7 +28,7 @@ public class FlashDataSource {
         boolean didSucceed = false;
         try {
             ContentValues initialValues = new ContentValues();
-            initialValues.put("subject", f.getSubject());
+            initialValues.put("subject", normalizeSubject(f.getSubject()));
             initialValues.put("front", f.getFront());
             initialValues.put("back", f.getBack());
             long id = database.insert("flash", null, initialValues);
@@ -46,7 +46,7 @@ public class FlashDataSource {
             Long rowId = (long) f.getFlashcardID();
             ContentValues updateValues = new ContentValues();
 
-            updateValues.put("subject", f.getSubject());
+            updateValues.put("subject", normalizeSubject(f.getSubject()));
             updateValues.put("front", f.getFront());
             updateValues.put("back", f.getBack());
 
@@ -95,7 +95,7 @@ public class FlashDataSource {
     public ArrayList<String> getAllSubjects(){
         ArrayList<String> subjects = new ArrayList<>();
         try {
-            Cursor cursor = database.rawQuery("SELECT DISTINCT subject FROM flash", null);
+            Cursor cursor = database.rawQuery("SELECT MIN(subject) as subject FROM flash GROUP BY LOWER(subject)", null);
             if(cursor.moveToFirst()){
                 do{
                     String subject = cursor.getString(0);
@@ -108,5 +108,10 @@ public class FlashDataSource {
         }
         return subjects;
 
+    }
+    public static String normalizeSubject(String subject) {
+        if (subject == null || subject.isEmpty()) return subject;
+        subject = subject.trim();
+        return subject.substring(0, 1).toUpperCase() + subject.substring(1).toLowerCase();
     }
 }
