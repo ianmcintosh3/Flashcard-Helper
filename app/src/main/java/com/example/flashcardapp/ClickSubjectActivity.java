@@ -1,5 +1,7 @@
 package com.example.flashcardapp;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,7 +19,7 @@ public class ClickSubjectActivity extends AppCompatActivity {
     private SubjectAdapter subjectAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_subject);
 
@@ -30,34 +32,23 @@ public class ClickSubjectActivity extends AppCompatActivity {
         ds.close();
 
         subjectAdapter = new SubjectAdapter(subjectArrayList, this);
+        subjectAdapter.setOnItemClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = recyclerView.getChildAdapterPosition(view);
+                String selectedSubject = subjectArrayList.get(position);
+
+                Intent intent = new Intent(ClickSubjectActivity.this, ListOfCardsActivity.class);
+                intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("subject", selectedSubject); // Optional: pass selected subject
+                startActivity(intent);
+            }
+        });
         recyclerView.setAdapter(subjectAdapter);
-        subjectAdapter.setfOnItemClickListener(onSubjectClickListener);
 
     }
 
-    private View.OnClickListener onSubjectClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) v.getTag();
-            int position = viewHolder.getAdapterPosition();
-
-            if(position != RecyclerView.NO_POSITION) {
-                Flashcard selectedFlashcard = flashcardArrayList.get(position);
-                String flashSubject = selectedFlashcard.getSubject();
-                String flashFront = selectedFlashcard.getFront();
-                String flashBack = selectedFlashcard.getBack();
-                int flashcardId = selectedFlashcard.getFlashcardID();
-
-                //intent
-                Intent intent = new Intent(ClickSubjectActivity.this, MainActivity.class);
-                intent.putExtra("flashcardID", flashcardId);
-                intent.putExtra("subject", flashSubject);
-                intent.putExtra("front", flashFront);
-                intent.putExtra("back", flashBack);
-                startActivity(intent);
-
-            }
-        }
-    };
 
 }
+
+

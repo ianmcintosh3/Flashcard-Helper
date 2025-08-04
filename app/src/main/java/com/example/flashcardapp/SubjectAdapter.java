@@ -14,14 +14,14 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
     private ArrayList<String> subjects;
     private Context context;
 
-    private static View.OnClickListener fOnItemClickListener;
+    private static View.OnClickListener sOnItemClickListener;
 
     public SubjectAdapter(ArrayList<String> subjects, Context context) {
         this.subjects = subjects;
         this.context = context;
     }
-    public void setfOnItemClickListener(View.OnClickListener listener) {
-        fOnItemClickListener = listener;
+    public void setOnItemClickListener(View.OnClickListener listener) {
+        sOnItemClickListener = listener;
     }
     @Override
     public SubjectViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -41,6 +41,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
         public SubjectViewHolder(View itemView) {
             super(itemView);
             textViewSubject = itemView.findViewById(R.id.textViewSubject);
+            itemView.setOnClickListener(sOnItemClickListener);
         }
     }
 }

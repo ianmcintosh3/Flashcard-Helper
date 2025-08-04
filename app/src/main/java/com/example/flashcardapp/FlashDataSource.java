@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.sql.Array;
 import java.sql.SQLException;
@@ -88,7 +89,7 @@ public class FlashDataSource {
             }
             cursor.close();
         } catch (Exception e) {
-            // handle exception
+            Log.e("FlashDataSource", "Error getting flashcards", e);
         }
         return flashcards;
     }
