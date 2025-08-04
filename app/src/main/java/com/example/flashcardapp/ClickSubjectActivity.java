@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ReviewCardActivity extends AppCompatActivity {
+public class ClickSubjectActivity extends AppCompatActivity {
     ArrayList<Flashcard> flashcardArrayList;
     ArrayList<String> subjectArrayList;
     private FlashAdapter flashAdapter;
@@ -49,7 +49,7 @@ public class ReviewCardActivity extends AppCompatActivity {
                 int flashcardId = selectedFlashcard.getFlashcardID();
 
                 //intent
-                Intent intent = new Intent(ReviewCardActivity.this, MainActivity.class);
+                Intent intent = new Intent(ClickSubjectActivity.this, MainActivity.class);
                 intent.putExtra("flashcardID", flashcardId);
                 intent.putExtra("subject", flashSubject);
                 intent.putExtra("front", flashFront);

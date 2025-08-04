@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         initCreateButton();
-        initReviewButton();
+        initSubjectButton();
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -45,11 +45,11 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-    public void initReviewButton(){
-        Button reviewButton = findViewById(R.id.buttonReview);
+    public void initSubjectButton(){
+        Button reviewButton = findViewById(R.id.buttonSubList);
         reviewButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
-                Intent intent = new Intent(MainActivity.this, ReviewCardActivity.class);
+                Intent intent = new Intent(MainActivity.this, ClickSubjectActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }

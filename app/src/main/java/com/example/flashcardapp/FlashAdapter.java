@@ -28,17 +28,21 @@ public class FlashAdapter extends RecyclerView.Adapter<FlashAdapter.FlashViewHol
 
     public static class FlashViewHolder extends RecyclerView.ViewHolder {
         public TextView textSubject;
+        public TextView textFront;
+        public TextView textBack;
 
         public FlashViewHolder(View itemView){
             super(itemView);
             textSubject = itemView.findViewById(R.id.textViewSubject);
+            textFront = itemView.findViewById(R.id.frontCardText);
+            textBack = itemView.findViewById(R.id.backCardText);
             itemView.setTag(this);
             itemView.setOnClickListener(fOnItemClickListener);
         }
     }
 
     public FlashViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.subject_list, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.flashcard_list, parent, false);
         return new FlashViewHolder(v);
     }
 
@@ -51,5 +55,8 @@ public class FlashAdapter extends RecyclerView.Adapter<FlashAdapter.FlashViewHol
     public void onBindViewHolder(@NonNull FlashViewHolder holder, int position) {
         Flashcard currentFlashcard = flashcardArrayList.get(position);
         holder.textSubject.setText(currentFlashcard.getSubject());
+        holder.textFront.setText(currentFlashcard.getFront());
+        holder.textBack.setText(currentFlashcard.getBack());
+
     }
 }
