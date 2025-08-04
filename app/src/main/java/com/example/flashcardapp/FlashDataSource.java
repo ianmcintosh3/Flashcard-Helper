@@ -115,4 +115,25 @@ public class FlashDataSource {
         subject = subject.trim();
         return subject.substring(0, 1).toUpperCase() + subject.substring(1).toLowerCase();
     }
+    public ArrayList<Flashcard> getFlashcardsBySubject(String subject) {
+        subject = normalizeSubject(subject);
+        ArrayList<Flashcard> flashcards = new ArrayList<>();
+        try {
+            Cursor cursor = database.rawQuery("SELECT _id, subject, front, back FROM flash WHERE subject = ?", new String[]{subject});
+            if (cursor.moveToFirst()) {
+                do {
+                    Flashcard card = new Flashcard();
+                    card.setFlashcardID(cursor.getInt(0));
+                    card.setSubject(cursor.getString(1));
+                    card.setFront(cursor.getString(2));
+                    card.setBack(cursor.getString(3));
+                    flashcards.add(card);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        } catch (Exception e) {
+            Log.e("FlashDataSource", "Error getting flashcards", e);
+        }
+        return flashcards;
+    }
 }

@@ -49,12 +49,12 @@ public class FlashAdapter extends RecyclerView.Adapter<FlashAdapter.FlashViewHol
 
     @Override
     public int getItemCount() {
-        return 0;
+        return flashcardArrayList.size();
     }
     @Override
     public void onBindViewHolder(@NonNull FlashViewHolder holder, int position) {
         Flashcard currentFlashcard = flashcardArrayList.get(position);
-        holder.textSubject.setText(currentFlashcard.getSubject());
+        //holder.textSubject.setText(currentFlashcard.getSubject());
         holder.textFront.setText(currentFlashcard.getFront());
         holder.textBack.setText(currentFlashcard.getBack());
 

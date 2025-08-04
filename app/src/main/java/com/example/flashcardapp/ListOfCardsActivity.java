@@ -18,19 +18,20 @@ public class ListOfCardsActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        String subject = getIntent().getStringExtra("subject");
         setContentView(R.layout.select_flashcard);
         RecyclerView recyclerView = findViewById(R.id.recyclerViewFlashcards);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         FlashDataSource ds = new FlashDataSource(this);
         ds.open();
-        flashcardArrayList = ds.getAllFlashcards();
+        flashcardArrayList = ds.getFlashcardsBySubject(subject);
         ds.close();
 
         flashAdapter = new FlashAdapter(flashcardArrayList,this);
         flashAdapter.setOnItemClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ListOfCardsActivity.this, MainActivity.class);
+                Intent intent = new Intent(ListOfCardsActivity.this, CreateCardActivity.class);
                 intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
