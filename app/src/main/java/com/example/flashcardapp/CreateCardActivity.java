@@ -24,7 +24,7 @@ public class CreateCardActivity extends AppCompatActivity {
         setContentView(R.layout.create_card);
 
         Intent intent = getIntent();
-        int flashID = intent.getIntExtra("memoID", -1);
+        int flashID = intent.getIntExtra("flashcardID", -1);
         String subject = intent.getStringExtra("subject");
         String front = intent.getStringExtra("front");
         String back = intent.getStringExtra("back");

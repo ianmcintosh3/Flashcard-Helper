@@ -32,8 +32,8 @@ public class FlashDataSource {
             initialValues.put("subject", normalizeSubject(f.getSubject()));
             initialValues.put("front", f.getFront());
             initialValues.put("back", f.getBack());
-            long id = database.insert("flash", null, initialValues);
-            didSucceed = (id != -1);
+            didSucceed = database.insert("flash", null, initialValues) > 0;
+            //didSucceed = (id != -1);
         }
         catch(Exception e) {
             //d
