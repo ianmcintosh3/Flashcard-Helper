@@ -52,12 +52,12 @@ public class CreateCardActivity extends AppCompatActivity {
         }
         initSaveButton();
         initDoneButton();
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.createCard), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        setForEditing(true);
     }
 
     private void initSaveButton() {
@@ -107,6 +107,19 @@ public class CreateCardActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    public void setForEditing(boolean enabled){
+        EditText editSubject = findViewById(R.id.editTextSubject);
+        EditText editFront = findViewById(R.id.editTextFront);
+        EditText editBack = findViewById(R.id.editTextBack);
+        Button buttonSave = findViewById(R.id.buttonSave);
+        editSubject.setEnabled(enabled);
+        editFront.setEnabled(enabled);
+        editBack.setEnabled(enabled);
+        buttonSave.setEnabled(enabled);
+
+
+
     }
 
 }
