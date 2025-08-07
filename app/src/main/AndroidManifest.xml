@@ -24,6 +24,7 @@
             <activity android:name=".CreateCardActivity" />
             <activity android:name=".ClickSubjectActivity" />
             <activity android:name=".ListOfCardsActivity" />
+            <activity android:name=".ReviewCardsActivity" />
     </application>
 
 </manifest>

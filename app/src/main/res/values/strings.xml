@@ -3,4 +3,8 @@
     <string name="back">Back</string>
     <string name="front">Front</string>
     <string name="textview">TextView</string>
+    <string name="subject">Subject</string>
+    <string name="textviewfrontcard">TextViewFrontCard</string>
+    <string name="textviewbackcard">TextViewBackCard</string>
+    <string name="next">NEXT</string>
 </resources>

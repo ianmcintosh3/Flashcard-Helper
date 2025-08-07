@@ -5,6 +5,7 @@ import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -52,6 +53,19 @@ public class ListOfCardsActivity extends AppCompatActivity {
                 }
             }});
         recyclerView.setAdapter(flashAdapter);
+        initReviewButton();
+
+    }
+    public void initReviewButton(){
+        Button reviewButton = findViewById(R.id.buttonReview);
+        reviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListOfCardsActivity.this, ReviewCardsActivity.class);
+                intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
 
     }
 }

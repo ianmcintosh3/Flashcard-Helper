@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
     public void initSubjectButton(){
-        Button reviewButton = findViewById(R.id.buttonSubList);
-        reviewButton.setOnClickListener(new View.OnClickListener(){
+        Button subjectButton = findViewById(R.id.buttonSubList);
+        subjectButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 Intent intent = new Intent(MainActivity.this, ClickSubjectActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
