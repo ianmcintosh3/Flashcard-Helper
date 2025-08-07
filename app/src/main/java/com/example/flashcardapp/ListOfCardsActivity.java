@@ -10,7 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ListOfCardsActivity extends AppCompatActivity {
     private FlashAdapter flashAdapter;
@@ -31,11 +33,23 @@ public class ListOfCardsActivity extends AppCompatActivity {
         flashAdapter.setOnItemClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ListOfCardsActivity.this, CreateCardActivity.class);
-                intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-        });
+                RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) v.getTag();
+                int position = viewHolder.getAdapterPosition();
+
+                if (position != RecyclerView.NO_POSITION) { // Ensure valid position
+                    Flashcard selectedFlashcard = flashcardArrayList.get(position);
+                    String flashSubject = selectedFlashcard.getSubject();
+                    String flashFront = selectedFlashcard.getFront();
+                    String flashBack = selectedFlashcard.getBack();
+                    int FlashId = selectedFlashcard.getFlashcardID();
+                    Intent intent = new Intent(ListOfCardsActivity.this, CreateCardActivity.class);
+                    intent.putExtra("subject", flashSubject);
+                    intent.putExtra("front", flashFront);
+                    intent.putExtra("back", flashBack);
+                    intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+            }});
         recyclerView.setAdapter(flashAdapter);
 
     }
