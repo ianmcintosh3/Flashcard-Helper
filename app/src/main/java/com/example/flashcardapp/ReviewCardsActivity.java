@@ -48,6 +48,7 @@ public class ReviewCardsActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(flashcardArrayList.isEmpty()) return;
                 currentIndex = (currentIndex + 1) % flashcardArrayList.size();
                 showingFront = true;
                 cardDisplay();
@@ -66,7 +67,7 @@ public class ReviewCardsActivity extends AppCompatActivity {
         Flashcard card = flashcardArrayList.get(currentIndex);
         if(showingFront){
             frontCardTextView.setText(card.getFront());
-            backCardTextView.setText("Show Front");
+            backCardTextView.setText("Show Back");
         } else{
             frontCardTextView.setText(card.getBack());
             backCardTextView.setText("Show Front");

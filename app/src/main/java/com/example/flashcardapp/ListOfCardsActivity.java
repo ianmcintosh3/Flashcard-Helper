@@ -63,6 +63,7 @@ public class ListOfCardsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ListOfCardsActivity.this, ReviewCardsActivity.class);
                 intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("subject", getIntent().getStringExtra("subject"));
                 startActivity(intent);
             }
         });
