@@ -43,7 +43,7 @@ public class ListOfCardsActivity extends AppCompatActivity {
                     String flashBack = selectedFlashcard.getBack();
                     int flashID = selectedFlashcard.getFlashcardID();
                     Intent intent = new Intent(ListOfCardsActivity.this, CreateCardActivity.class);
-                    intent.putExtra("flashID", flashID);
+                    intent.putExtra("flashcardID", flashID);
                     intent.putExtra("subject", flashSubject);
                     intent.putExtra("front", flashFront);
                     intent.putExtra("back", flashBack);
